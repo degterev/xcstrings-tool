@@ -2,10 +2,11 @@ import Foundation
 import PackagePlugin
 
 private let stringResourceExtensions: Set<String> = ["xcstrings", "strings", "stringsdict"]
+private let ignoreExtensions: Set<String> = ["lproj"]
 
 extension FileList {
     var stringResources: [File] {
-        self.filter { stringResourceExtensions.contains($0.path.extension ?? "") }
+        self.filter { stringResourceExtensions.contains($0.path.extension ?? "") && !ignoreExtensions.contains($0.path.extension ?? "") }
     }
     
     var stringTables: [(tableName: String, files: [File])] {
